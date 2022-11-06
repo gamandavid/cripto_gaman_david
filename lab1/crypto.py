@@ -164,19 +164,39 @@ def decrypt_mh(message, private_key):
 def encrypt_scytale(plaintext, circumference):
     length = len(plaintext)
     result = ''
-    # Iterate through the text letter by letter
+    # Iterate through the text by every nth element
     for i in range(circumference):
         for j in range(i,length,circumference):
             result += plaintext[j]       
     return result
 
 
-    
-
-
 def decrypt_scytale(cipheretext, circumference):
     result = ''  
+    length = len(cipheretext)
+    # If the length is dividable by the circum.
+    if length % circumference == 0:
+        circumference = circumference - 1
+        for i in range(circumference):
+            for j in range(i,length,circumference):
+                result += cipheretext[j]
+    # Else we use another method            
+    else:
+        i = 0 
+        j = 0
+        increased = circumference
+        result += cipheretext[0]
+        while i < length - 1:
+            i = i + 1
+            if (i % circumference == 0) and (i != 0):
+                j = i // circumference
+                increased = circumference
+            else:
+                j = j + increased
+                increased = increased - 1
+            result += cipheretext[j]    
     return result
+    
 
 
 # W . . . E . . . C . . . R . . . L . . . T . . . E
