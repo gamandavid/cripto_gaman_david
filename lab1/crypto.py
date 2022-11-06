@@ -4,8 +4,8 @@ File: crypto.py
 ---------------
 Assignment 1: Cryptography
 Course: CS 41
-Name: <YOUR NAME>
-SUNet: <SUNet ID>
+Name: <Gaman David - Mihaly>
+SUNet: <gdim2018>
 
 Replace this with a description of the program.
 """
@@ -14,37 +14,63 @@ import utils
 # Caesar Cipher
 
 def encrypt_caesar(plaintext):
-    """Encrypt plaintext using a Caesar cipher.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+    result = ''
+    # Go through the text letter by letter
+    for i in range(len(plaintext)):
+        letter = plaintext[i]
+        # Get the ascii value of the letter
+        value = ord(letter)
+        # If it's not an upper case letter, dont modify it
+        if (value > 64) and (value < 91):
+            result += chr((value-ord('A') + 3) % 26 + 65)
+        else:
+            result +=chr(value)    
+    return result    
 
 
 def decrypt_caesar(ciphertext):
-    """Decrypt a ciphertext using a Caesar cipher.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+    result = ''
+    # Go through the text letter by letter
+    for i in range(len(ciphertext)):
+        letter = ciphertext[i]
+        # Get the ascii value of the letter
+        value = ord(letter)
+        # If it's not an upper case letter, dont modify it
+        if (value > 64) and (value < 91):
+            result += chr((value-ord('A') - 3) % 26 + 65)
+        else:
+            result +=chr(value)    
+    return result 
 
 
 # Vigenere Cipher
 
 def encrypt_vigenere(plaintext, keyword):
-    """Encrypt plaintext using a Vigenere cipher with a keyword.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+    result = ''
+    # Go through the text and keyword letter by letter
+    for i in range(len(plaintext)):
+        letter = plaintext[i]
+        keyshift = keyword[i]
+        # Get the ascii value of the letters
+        value = ord(letter) - 65
+        keyvalue = ord(keyshift) - 65
+        # Shift the text's latter by the key's given value 
+        result += chr((value + keyvalue) % 26 + 65) 
+    return result 
 
 
 def decrypt_vigenere(ciphertext, keyword):
-    """Decrypt ciphertext using a Vigenere cipher with a keyword.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+    result = ''
+    # Go through the text and keyword letter by letter
+    for i in range(len(ciphertext)):
+        letter = ciphertext[i]
+        keyshift = keyword[i]
+        # Get the ascii value of the letters
+        value = ord(letter) - 65
+        keyvalue = ord(keyshift) - 65
+        # Shift the text's latter by the key's given value 
+        result += chr((value - keyvalue) % 26 + 65) 
+    return result 
 
 
 # Merkle-Hellman Knapsack Cryptosystem
@@ -128,3 +154,40 @@ def decrypt_mh(message, private_key):
     """
     raise NotImplementedError  # Your implementation here
 
+
+# I . . . . R . . . . Y . . . . Y . . . .
+# . A . . . . T . . . . B . . . . H . . .
+# . . M . . . . V . . . . A . . . . E . .
+# . . . H . . . . E . . . . D . . . . L .
+# . . . . U . . . . R . . . . L . . . . P
+
+def encrypt_scytale(plaintext, circumference):
+    length = len(plaintext)
+    result = ''
+    # Iterate through the text letter by letter
+    for i in range(circumference):
+        for j in range(i,length,circumference):
+            result += plaintext[j]       
+    return result
+
+
+    
+
+
+def decrypt_scytale(cipheretext, circumference):
+    result = ''  
+    return result
+
+
+# W . . . E . . . C . . . R . . . L . . . T . . . E
+# . E . R . D . S . O . E . E . F . E . A . O . C .
+# . . A . . . I . . . V . . . D . . . E . . . N . .
+
+def encrypt_railfence(plaintext, num_rails):
+    result = ''
+    return result
+
+
+def decrypt_railfence(ciphertext, num_rails):
+    result = ''    
+    return result
