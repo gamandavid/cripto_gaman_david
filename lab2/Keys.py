@@ -22,4 +22,4 @@ def coder(myalg, start, msg) :
 
 def decoder(myalg, start, msg) :
     secret = secreting(myalg, start, msg)
-    return (b''.join(secret)).decode()     
+    return (b''.join(secret)).decode()  
