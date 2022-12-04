@@ -23,3 +23,14 @@ def coder(myalg, start, msg) :
 def decoder(myalg, start, msg) :
     secret = secreting(myalg, start, msg)
     return (b''.join(secret)).decode()  
+
+
+def Blum_Blum_Shub(start) :
+    n = start[0]
+    x0 = start[1]
+    z= []
+    for i in range(8) :
+        x1 = (x0**2) % n
+        z.append(str(x1 % 2))
+        x0 = x1
+    return (int("".join(z), 2), [n, x0])    
