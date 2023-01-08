@@ -1,9 +1,17 @@
 from Cryptodome.Util import number
 import random
+import utils
 
 # XOR
 def byte_xor(ba1, ba2):
     return bytes([a ^ b for a, b in zip(ba1, ba2)])
+
+def byte_to_bits(byte):
+    out = []
+    for i in range(8):
+        out.append(byte & 1)
+        byte >>= 1
+    return out[::-1]
 
 
 # Folyamattikosito
@@ -133,40 +141,24 @@ def encrypt_mh(message, public_key):
     # Chunkolasa uzenetnek
     n = 8  # Chunk hossza
     chunks = [message[i:i+n] for i in range(0, len(message), n)]
+    encrypted = [
+        sum(list(map(lambda x,y : x*y,  byte_to_bits(byte), public_key))) 
+        for byte in chunks]
 
-    # 2.
-    # Hany chunk van
-    hossz = len(message)
-    nr = hossz // n
-    if (hossz % n > 0):
-        nr = nr + 1
+    return encrypted
 
-    # Vegigmeni chunkokon
-    #for i in range()
-
-
-
-    return message
 
 def decrypt_mh(message, private_key):
-    """Decrypt an incoming message using a private key
+    (w, q, r) = private_key
+    #s = utils.modinv(r, q)
 
-    1. Extract w, q, and r from the private key
-    2. Compute s, the modular inverse of r mod q, using the
-        Extended Euclidean algorithm (implemented at `utils.modinv(r, q)`)
-    3. For each byte-sized chunk, compute
-         c' = cs (mod q)
-    4. Solve the superincreasing subset sum using c' and w to recover the original byte
-    5. Reconsitite the encrypted bytes to get the original message back
+    # c' = cs (mod q)
+    c_ = [(c*s) % q for c in message]
 
-    @param message Encrypted message chunks
-    @type message list of ints
-    @param private_key The private key of the recipient
-    @type private_key 3-tuple of w, q, and r
+    decrypted = ""
 
-    @return bytearray or str of decrypted characters
-    """
-    return message
+    return decrypted
+
 
 print('hello')    
 
@@ -174,7 +166,8 @@ print('hello')
 #print(kezd)
 #priv = generate_private_key(8);
 #print(priv)
-##pub = create_public_key(priv)
+#pub = create_public_key(priv)
 #print(pub)
 
 #print(create_public_key(generate_private_key(8)))
+#print(encrypt_mh("abcdefghij",pub))
