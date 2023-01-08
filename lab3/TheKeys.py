@@ -18,7 +18,7 @@ def byte_xor(ba1, ba2):
 
 #        (mykey, start) = myalg(start)
 #        k = mykey.to_bytes(1,"big")
-#    return secret
+#     return secret
 
 
 def solitaire(kezd) :
